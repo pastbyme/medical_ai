@@ -22,7 +22,7 @@ yiliao/
                                               │                                     │
                                          ┌────▼─────┐                     ┌─────────▼─────────┐
                                          │  Ollama   │                     │  高德地图 API     │
-                                         │ qwen3:4b  │                     │  QQ邮箱 SMTP      │
+                                         │ qwen2.5-7b │                     │  QQ邮箱 SMTP      │
                                          └──────────┘                     └───────────────────┘
                                               │
                                          ┌────▼─────┐
@@ -37,7 +37,7 @@ yiliao/
 
 ### 1. 智能问诊对话（main.py + Ollama）
 
-- 调用本地 **Ollama** 运行 `qwen3:4b` 模型进行医疗问答
+- 调用本地 **Ollama** 运行 `qwen2.5-7b` 模型进行医疗问答
 - 支持 **Function Calling**：模型可自主决定是否调用 MCP 工具
 - 支持流式/非流式两种响应模式
 - 完整的对话上下文管理，可配置历史消息长度
@@ -90,7 +90,7 @@ MCP 服务器提供两个可被大模型调用的工具：
 
 - Python 3.9+
 - MySQL 8.0+
-- [Ollama](https://ollama.com/)（已安装 `qwen3:4b` 模型）
+- [Ollama](https://ollama.com/)（已安装 `qwen2.5-7b` 模型）
 
 ### Python 包
 
@@ -177,14 +177,14 @@ Ollama 返回：纯文本回复 或 tool_calls
 
 ## 配置项
 
-| 配置项 | 位置 | 默认值 | 说明 |
-|--------|------|--------|------|
+| 配置项 | 位置 | 默认值                               | 说明 |
+|--------|------|-----------------------------------|------|
 | `OLLAMA_URL` | main.py | `http://localhost:11434/api/chat` | Ollama API 地址 |
-| `DEFAULT_MODEL` | main.py | `qwen3:4b` | 默认大模型 |
-| `MCP_SERVER_URL` | main.py | `http://127.0.0.1:8001/sse` | MCP 服务器地址 |
-| `MYSQL_PASSWORD` | main.py | 环境变量或 `root123` | MySQL 密码 |
-| `AMAP_SERVER_KEY` | test.py | 空 | 高德地图 Web 服务 Key |
-| `SMTP_USER` / `SMTP_PASSWORD` | test.py | 空 | QQ 邮箱账号和授权码 |
+| `DEFAULT_MODEL` | main.py | `qwen2.5-7b`                      | 默认大模型 |
+| `MCP_SERVER_URL` | main.py | `http://127.0.0.1:8001/sse`       | MCP 服务器地址 |
+| `MYSQL_PASSWORD` | main.py | 环境变量或 `root123`                   | MySQL 密码 |
+| `AMAP_SERVER_KEY` | test.py | 空                                 | 高德地图 Web 服务 Key |
+| `SMTP_USER` / `SMTP_PASSWORD` | test.py | 空                                 | QQ 邮箱账号和授权码 |
 
 ---
 
@@ -192,5 +192,5 @@ Ollama 返回：纯文本回复 或 tool_calls
 
 - MCP 工具服务器（test.py）必须在 FastAPI 后端启动**之前**运行，否则后端无法加载工具列表。
 - 高德 API Key 和邮箱 SMTP 授权码属于敏感信息，生产环境建议使用环境变量管理。
-- Ollama 模型回复质量取决于所使用模型的能力，`qwen3:4b` 为轻量模型，可根据硬件条件替换为更大模型。
+- Ollama 模型回复质量取决于所使用模型的能力，`qwen2.5-7b` 为轻量模型，可根据硬件条件替换为更大模型。
 - 前端 `1.html` 中的 API 地址默认指向 `http://127.0.0.1:8000`，如需修改请调整文件中的 `API_BASE` 变量。
